@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Vue Components 👋</h1>
+<h1 align="center">Welcome to vuepress-theme-saltedfish 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="https://github.com/didadi599/vuepress-theme-saltedfish/graphs/commit-activity" target="_blank">
@@ -9,7 +9,7 @@
   </a>
 </p>
 
-> C&amp;V TO USE🕹
+> A vuepress theme
 
 ### 🏠 [Homepage](https://github.com/saltedfish964/vuepress-theme-saltedfish)
 
