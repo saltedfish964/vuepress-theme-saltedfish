@@ -6,12 +6,14 @@
       :to="$localePath"
       class="home-link"
     >
+      <!-- logo -->
       <img
         v-if="$site.themeConfig.logo"
         class="logo"
         :src="$withBase($site.themeConfig.logo)"
         :alt="$siteTitle"
       >
+      <!-- 网站标题 -->
       <span
         v-if="$siteTitle"
         ref="siteName"
@@ -26,48 +28,27 @@
         'max-width': linksWrapMaxWidth + 'px'
       } : {}"
     >
-      <AlgoliaSearchBox
-        v-if="isAlgoliaSearch"
-        :options="algolia"
-      />
-      <SearchBox
-        v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"
-      />
       <NavLinks class="can-hide" />
     </div>
   </header>
 </template>
 
 <script>
-import AlgoliaSearchBox from '@AlgoliaSearchBox'
-import SearchBox from '@SearchBox'
-import SidebarButton from '@theme/components/SidebarButton.vue'
-import NavLinks from '@theme/components/NavLinks.vue'
+import SidebarButton from './SidebarButton.vue'
+import NavLinks from './NavLinks.vue'
 
 export default {
   name: 'Navbar',
 
+  data () {
+    return {
+      linksWrapMaxWidth: null,
+    }
+  },
+
   components: {
     SidebarButton,
     NavLinks,
-    SearchBox,
-    AlgoliaSearchBox
-  },
-
-  data () {
-    return {
-      linksWrapMaxWidth: null
-    }
-  },
-
-  computed: {
-    algolia () {
-      return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
-    },
-
-    isAlgoliaSearch () {
-      return this.algolia && this.algolia.apiKey && this.algolia.indexName
-    }
   },
 
   mounted () {

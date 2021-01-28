@@ -3,7 +3,7 @@
     v-if="userLinks.length || repoLink"
     class="nav-links"
   >
-    <!-- user links -->
+    <!-- 导航链接 -->
     <div
       v-for="item in userLinks"
       :key="item.link"
@@ -19,7 +19,7 @@
       />
     </div>
 
-    <!-- repo link -->
+    <!-- Git 仓库和编辑链接 -->
     <a
       v-if="repoLink"
       :href="repoLink"
@@ -34,23 +34,22 @@
 </template>
 
 <script>
-import DropdownLink from '@theme/components/DropdownLink.vue'
-import { resolveNavLinkItem } from '../util'
-import NavLink from '@theme/components/NavLink.vue'
+import DropdownLink from './DropdownLink.vue';
+import NavLink from './NavLink.vue';
+import { resolveNavLinkItem } from '../util';
 
 export default {
   name: 'NavLinks',
 
   components: {
+    DropdownLink,
     NavLink,
-    DropdownLink
   },
 
   computed: {
     userNav () {
       return this.$themeLocaleConfig.nav || this.$site.themeConfig.nav || []
     },
-
     nav () {
       const { locales } = this.$site
       if (locales && Object.keys(locales).length > 1) {
@@ -82,15 +81,17 @@ export default {
       }
       return this.userNav
     },
-
+    // 配置的导航栏列表数据
     userLinks () {
+      console.log('this.nav：', this.nav);
       return (this.nav || []).map(link => {
+        console.log(link);
         return Object.assign(resolveNavLinkItem(link), {
           items: (link.items || []).map(resolveNavLinkItem)
         })
       })
     },
-
+    // Git 仓库和编辑链接
     repoLink () {
       const { repo } = this.$site.themeConfig
       if (repo) {
@@ -100,57 +101,59 @@ export default {
       }
       return null
     },
-
-    repoLabel () {
-      if (!this.repoLink) return
-      if (this.$site.themeConfig.repoLabel) {
-        return this.$site.themeConfig.repoLabel
-      }
-
-      const repoHost = this.repoLink.match(/^https?:\/\/[^/]+/)[0]
-      const platforms = ['GitHub', 'GitLab', 'Bitbucket']
-      for (let i = 0; i < platforms.length; i++) {
-        const platform = platforms[i]
-        if (new RegExp(platform, 'i').test(repoHost)) {
-          return platform
-        }
-      }
-
-      return 'Source'
-    }
-  }
+  },
 }
 </script>
 
 <style lang="stylus">
-.nav-links
-  display inline-block
-  a
-    line-height 1.4rem
-    color inherit
-    &:hover, &.router-link-active
-      color $accentColor
-  .nav-item
-    position relative
-    display inline-block
-    margin-left 1.5rem
-    line-height 2rem
-    &:first-child
-      margin-left 0
-  .repo-link
-    margin-left 1.5rem
+.nav-links {
+  display: inline-block;
 
-@media (max-width: $MQMobile)
-  .nav-links
-    .nav-item, .repo-link
-      margin-left 0
+  a {
+    line-height: 1.4rem;
+    color: inherit;
 
-@media (min-width: $MQMobile)
-  .nav-links a
-    &:hover, &.router-link-active
-      color $textColor
-  .nav-item > a:not(.external)
-    &:hover, &.router-link-active
-      margin-bottom -2px
-      border-bottom 2px solid lighten($accentColor, 8%)
+    &:hover, &.router-link-active {
+      color: $accentColor;
+    }
+  }
+
+  .nav-item {
+    position: relative;
+    display: inline-block;
+    margin-left: 1.5rem;
+    line-height: 2rem;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .repo-link {
+    margin-left: 1.5rem;
+  }
+}
+
+@media (max-width: $MQMobile) {
+  .nav-links {
+    .nav-item, .repo-link {
+      margin-left: 0;
+    }
+  }
+}
+
+@media (min-width: $MQMobile) {
+  .nav-links a {
+    &:hover, &.router-link-active {
+      color: $textColor;
+    }
+  }
+
+  .nav-item > a:not(.external) {
+    &:hover, &.router-link-active {
+      margin-bottom: -2px;
+      border-bottom: 2px solid lighten($accentColor, 8%);
+    }
+  }
+}
 </style>

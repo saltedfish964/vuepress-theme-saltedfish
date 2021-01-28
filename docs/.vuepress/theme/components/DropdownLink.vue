@@ -10,9 +10,7 @@
       @click="handleDropdown"
     >
       <span class="title">{{ item.text }}</span>
-      <span
-        class="arrow down"
-      />
+      <span class="arrow down" />
     </button>
     <button
       class="mobile-dropdown-title"
@@ -54,8 +52,8 @@
                 :item="childSubItem"
                 @focusout="
                   isLastItemOfArray(childSubItem, subItem.items) &&
-                    isLastItemOfArray(subItem, item.items) &&
-                    setOpen(false)
+                  isLastItemOfArray(subItem, item.items) &&
+                  setOpen(false)
                 "
               />
             </li>
@@ -73,180 +71,253 @@
 </template>
 
 <script>
-import NavLink from '@theme/components/NavLink.vue'
-import DropdownTransition from '@theme/components/DropdownTransition.vue'
-import last from 'lodash/last'
+import DropdownTransition from './DropdownTransition.vue';
+import NavLink from './NavLink.vue';
 
 export default {
-  name: 'DropdownLink',
-
-  components: {
-    NavLink,
-    DropdownTransition
-  },
-
   props: {
     item: {
-      required: true
-    }
+      required: true,
+    },
   },
 
   data () {
     return {
-      open: false
+      // 控制导航列表是否展开
+      open: false,
     }
+  },
+
+  components: {
+    DropdownTransition,
+    NavLink,
   },
 
   computed: {
     dropdownAriaLabel () {
-      return this.item.ariaLabel || this.item.text
-    }
+      return this.item.ariaLabel || this.item.text;
+    },
   },
 
   watch: {
+    // route 改变时收起列表
     $route () {
-      this.open = false
-    }
+      this.open = false;
+    },
   },
-
   methods: {
+    // 设置列表展开/收起状态
     setOpen (value) {
-      this.open = value
+      this.open = value;
     },
-
+    // 键盘操作
+    handleDropdown (event) {
+      const isTriggerByTab = event.detail === 0;
+      if (isTriggerByTab) this.setOpen(!this.open);
+    },
     isLastItemOfArray (item, array) {
-      return last(array) === item
+      return last(array) === item;
     },
+  },
+}
 
-    /**
-     * Open the dropdown when user tab and click from keyboard.
-     *
-     * Use event.detail to detect tab and click from keyboard. Ref: https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
-     * The Tab + Click is UIEvent > KeyboardEvent, so the detail is 0.
-     */
-    handleDropdown () {
-      const isTriggerByTab = event.detail === 0
-      if (isTriggerByTab) this.setOpen(!this.open)
-    }
-  }
+function last(array) {
+  var length = array ? array.length : 0;
+  return length ? array[length - 1] : undefined;
 }
 </script>
 
 <style lang="stylus">
-.dropdown-wrapper
-  cursor pointer
-  .dropdown-title
-    display block
-    font-size 0.9rem
-    font-family inherit
-    cursor inherit
-    padding inherit
-    line-height 1.4rem
-    background transparent
-    border none
-    font-weight 500
-    color $textColor
-    &:hover
-      border-color transparent
-    .arrow
-      vertical-align middle
-      margin-top -1px
-      margin-left 0.4rem
-  .mobile-dropdown-title
-    @extends .dropdown-title
-    display none
-    font-weight 600
-    font-size inherit
-      &:hover
-        color $accentColor
-  .nav-dropdown
-    .dropdown-item
-      color inherit
-      line-height 1.7rem
-      h4
-        margin 0.45rem 0 0
-        border-top 1px solid #eee
-        padding 1rem 1.5rem 0.45rem 1.25rem
-      .dropdown-subitem-wrapper
-        padding 0
-        list-style none
-        .dropdown-subitem
-          font-size 0.9em
-      a
-        display block
-        line-height 1.7rem
-        position relative
-        border-bottom none
-        font-weight 400
-        margin-bottom 0
-        padding 0 1.5rem 0 1.25rem
-        &:hover
-          color $accentColor
-        &.router-link-active
-          color $accentColor
-          &::after
-            content ""
-            width 0
-            height 0
-            border-left 5px solid $accentColor
-            border-top 3px solid transparent
-            border-bottom 3px solid transparent
-            position absolute
-            top calc(50% - 2px)
-            left 9px
-      &:first-child h4
-        margin-top 0
-        padding-top 0
-        border-top 0
+.dropdown-wrapper {
+  cursor: pointer;
 
-@media (max-width: $MQMobile)
-  .dropdown-wrapper
-    &.open .dropdown-title
-      margin-bottom 0.5rem
-    .dropdown-title
-      display: none
-    .mobile-dropdown-title
-      display: block
-    .nav-dropdown
-      transition height .1s ease-out
-      overflow hidden
-      .dropdown-item
-        h4
-          border-top 0
-          margin-top 0
-          padding-top 0
-        h4, & > a
-          font-size 15px
-          line-height 2rem
-        .dropdown-subitem
-          font-size 14px
-          padding-left 1rem
+  .dropdown-title {
+    display: block;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: inherit;
+    padding: inherit;
+    line-height: 1.4rem;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    color: $textColor;
 
-@media (min-width: $MQMobile)
-  .dropdown-wrapper
-    height 1.8rem
-    &:hover .nav-dropdown,
-    &.open .nav-dropdown
+    &:hover {
+      border-color: transparent;
+    }
+
+    .arrow {
+      vertical-align: middle;
+      margin-top: -1px;
+      margin-left: 0.4rem;
+    }
+  }
+
+  .mobile-dropdown-title {
+    .dropdown-title {
+      display: block;
+      font-size: 0.9rem;
+      font-family: inherit;
+      cursor: inherit;
+      padding: inherit;
+      line-height: 1.4rem;
+      background: transparent;
+      border: none;
+      font-weight: 500;
+      color: $textColor;
+
+      &:hover {
+        border-color: transparent;
+      }
+
+      .arrow {
+        vertical-align: middle;
+        margin-top: -1px;
+        margin-left: 0.4rem;
+      }
+    }
+
+    display: none;
+    font-weight: 600;
+
+    font-size inherit {
+      &:hover {
+        color: $accentColor;
+      }
+    }
+  }
+
+  .nav-dropdown {
+    .dropdown-item {
+      color: inherit;
+      line-height: 1.7rem;
+
+      h4 {
+        margin: 0.45rem 0 0;
+        border-top: 1px solid #eee;
+        padding: 1rem 1.5rem 0.45rem 1.25rem;
+      }
+
+      .dropdown-subitem-wrapper {
+        padding: 0;
+        list-style: none;
+
+        .dropdown-subitem {
+          font-size: 0.9em;
+        }
+      }
+
+      a {
+        display: block;
+        line-height: 1.7rem;
+        position: relative;
+        border-bottom: none;
+        font-weight: 400;
+        margin-bottom: 0;
+        padding: 0 1.5rem 0 1.25rem;
+
+        &:hover {
+          color: $accentColor;
+        }
+
+        &.router-link-active {
+          color: $accentColor;
+
+          &::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 5px solid $accentColor;
+            border-top: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            position: absolute;
+            top: calc(50% - 2px);
+            left: 9px;
+          }
+        }
+      }
+
+      &:first-child h4 {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $MQMobile) {
+  .dropdown-wrapper {
+    &.open .dropdown-title {
+      margin-bottom: 0.5rem;
+    }
+
+    .dropdown-title {
+      display: none;
+    }
+
+    .mobile-dropdown-title {
+      display: block;
+    }
+
+    .nav-dropdown {
+      transition: height 0.1s ease-out;
+      overflow: hidden;
+
+      .dropdown-item {
+        h4 {
+          border-top: 0;
+          margin-top: 0;
+          padding-top: 0;
+        }
+
+        h4, & > a {
+          font-size: 15px;
+          line-height: 2rem;
+        }
+
+        .dropdown-subitem {
+          font-size: 14px;
+          padding-left: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $MQMobile) {
+  .dropdown-wrapper {
+    height: 1.8rem;
+
+    &:hover .nav-dropdown, &.open .nav-dropdown {
       // override the inline style.
-      display block !important
-    &.open:blur
-      display none
-    .nav-dropdown
-      display none
+      display: block !important;
+    }
+
+    &.open:blur {
+      display: none;
+    }
+
+    .nav-dropdown {
+      display: none;
       // Avoid height shaked by clicking
-      height auto !important
-      box-sizing border-box;
-      max-height calc(100vh - 2.7rem)
-      overflow-y auto
-      position absolute
-      top 100%
-      right 0
-      background-color #fff
-      padding 0.6rem 0
-      border 1px solid #ddd
-      border-bottom-color #ccc
-      text-align left
-      border-radius 0.25rem
-      white-space nowrap
-      margin 0
+      height: auto !important;
+      box-sizing: border-box;
+      max-height: calc(100vh - 2.7rem);
+      overflow-y: auto;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #fff;
+      padding: 0.6rem 0;
+      border: 1px solid #ddd;
+      border-bottom-color: #ccc;
+      text-align: left;
+      border-radius: 0.25rem;
+      white-space: nowrap;
+      margin: 0;
+    }
+  }
+}
 </style>
