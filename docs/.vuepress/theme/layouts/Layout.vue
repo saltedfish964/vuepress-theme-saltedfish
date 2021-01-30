@@ -2,92 +2,150 @@
   <div
     class="theme-container"
     :class="pageClasses"
+    @touchstart="onTouchStart"
+    @touchend="onTouchEnd"
   >
-    <Navbar v-if="shouldShowNavbar"></Navbar>
+    <Navbar
+      v-if="shouldShowNavbar"
+      @toggle-sidebar="toggleSidebar"
+    />
+
+    <div
+      class="sidebar-mask"
+      @click="toggleSidebar(false)"
+    />
+
+    <Sidebar
+      :items="sidebarItems"
+      @toggle-sidebar="toggleSidebar"
+    >
+      <template #top>
+        <slot name="sidebar-top" />
+      </template>
+      <template #bottom>
+        <slot name="sidebar-bottom" />
+      </template>
+    </Sidebar>
+
+    <Home v-if="$page.frontmatter.home" />
+
+    <Page
+      v-else
+      :sidebar-items="sidebarItems"
+    >
+      <template #top>
+        <slot name="page-top" />
+      </template>
+      <template #bottom>
+        <slot name="page-bottom" />
+      </template>
+    </Page>
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue';
-import { resolveSidebarItems } from '../util';
+import Home from '../components/Home.vue'
+import Navbar from '../components/Navbar.vue'
+import Page from '../components/Page.vue'
+import Sidebar from '../components/Sidebar.vue'
+import { resolveSidebarItems } from '../util'
 
 export default {
   name: 'Layout',
+
+  components: {
+    Home,
+    Page,
+    Sidebar,
+    Navbar
+  },
+
   data () {
     return {
-      isSidebarOpen: false,
+      isSidebarOpen: false
     }
   },
-  components: {
-    Navbar,
-  },
+
   computed: {
-    // 是否有导航栏
     shouldShowNavbar () {
-      const { themeConfig } = this.$site;
-      const { frontmatter } = this.$page;
+      const { themeConfig } = this.$site
+      const { frontmatter } = this.$page
       if (
         frontmatter.navbar === false
         || themeConfig.navbar === false) {
-        return false;
+        return false
       }
       return (
-        this.$title // 页面标题
+        this.$title
         || themeConfig.logo
         || themeConfig.repo
         || themeConfig.nav
         || this.$themeLocaleConfig.nav
-      );
+      )
     },
-    // 是否有侧边栏
+
     shouldShowSidebar () {
-      const { frontmatter } = this.$page;
-      console.log('是否有侧边栏：', frontmatter);
+      const { frontmatter } = this.$page
       return (
         !frontmatter.home
         && frontmatter.sidebar !== false
         && this.sidebarItems.length
-      );
+      )
     },
+
     sidebarItems () {
-      console.log('sidebarItems：', resolveSidebarItems(
-        this.$page,
-        this.$page.regularPath,
-        this.$site,
-        this.$localePath,
-      ));
       return resolveSidebarItems(
         this.$page,
         this.$page.regularPath,
         this.$site,
-        this.$localePath,
-      );
+        this.$localePath
+      )
     },
+
     pageClasses () {
-      const userPageClass = this.$page.frontmatter.pageClass;
-      console.log('无导航栏：', !this.shouldShowNavbar);
+      const userPageClass = this.$page.frontmatter.pageClass
       return [
         {
           'no-navbar': !this.shouldShowNavbar,
           'sidebar-open': this.isSidebarOpen,
-          'no-sidebar': !this.shouldShowSidebar,
+          'no-sidebar': !this.shouldShowSidebar
         },
-        userPageClass,
-      ];
-    },
+        userPageClass
+      ]
+    }
   },
-  methods: {
-    // 控制侧边栏展开/收起
-    toggleSidebar (to) {
-      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
-      this.$emit('toggle-sidebar', this.isSidebarOpen)
-    },
-  },
+
   mounted () {
-    // 跳转路由之后关闭侧边栏
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })
   },
+
+  methods: {
+    toggleSidebar (to) {
+      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen
+      this.$emit('toggle-sidebar', this.isSidebarOpen)
+    },
+
+    // side swipe
+    onTouchStart (e) {
+      this.touchStart = {
+        x: e.changedTouches[0].clientX,
+        y: e.changedTouches[0].clientY
+      }
+    },
+
+    onTouchEnd (e) {
+      const dx = e.changedTouches[0].clientX - this.touchStart.x
+      const dy = e.changedTouches[0].clientY - this.touchStart.y
+      if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+        if (dx > 0 && this.touchStart.x <= 80) {
+          this.toggleSidebar(true)
+        } else {
+          this.toggleSidebar(false)
+        }
+      }
+    }
+  }
 }
 </script>

@@ -52,8 +52,8 @@
                 :item="childSubItem"
                 @focusout="
                   isLastItemOfArray(childSubItem, subItem.items) &&
-                  isLastItemOfArray(subItem, item.items) &&
-                  setOpen(false)
+                    isLastItemOfArray(subItem, item.items) &&
+                    setOpen(false)
                 "
               />
             </li>
@@ -71,59 +71,66 @@
 </template>
 
 <script>
-import DropdownTransition from './DropdownTransition.vue';
-import NavLink from './NavLink.vue';
-
-export default {
-  props: {
-    item: {
-      required: true,
-    },
-  },
-
-  data () {
-    return {
-      // 控制导航列表是否展开
-      open: false,
-    }
-  },
-
-  components: {
-    DropdownTransition,
-    NavLink,
-  },
-
-  computed: {
-    dropdownAriaLabel () {
-      return this.item.ariaLabel || this.item.text;
-    },
-  },
-
-  watch: {
-    // route 改变时收起列表
-    $route () {
-      this.open = false;
-    },
-  },
-  methods: {
-    // 设置列表展开/收起状态
-    setOpen (value) {
-      this.open = value;
-    },
-    // 键盘操作
-    handleDropdown (event) {
-      const isTriggerByTab = event.detail === 0;
-      if (isTriggerByTab) this.setOpen(!this.open);
-    },
-    isLastItemOfArray (item, array) {
-      return last(array) === item;
-    },
-  },
-}
+import NavLink from './NavLink.vue'
+import DropdownTransition from './DropdownTransition.vue'
 
 function last(array) {
   var length = array ? array.length : 0;
   return length ? array[length - 1] : undefined;
+}
+
+export default {
+  name: 'DropdownLink',
+
+  components: {
+    NavLink,
+    DropdownTransition
+  },
+
+  props: {
+    item: {
+      required: true
+    }
+  },
+
+  data () {
+    return {
+      open: false
+    }
+  },
+
+  computed: {
+    dropdownAriaLabel () {
+      return this.item.ariaLabel || this.item.text
+    }
+  },
+
+  watch: {
+    $route () {
+      this.open = false
+    }
+  },
+
+  methods: {
+    setOpen (value) {
+      this.open = value
+    },
+
+    isLastItemOfArray (item, array) {
+      return last(array) === item
+    },
+
+    /**
+     * Open the dropdown when user tab and click from keyboard.
+     *
+     * Use event.detail to detect tab and click from keyboard. Ref: https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+     * The Tab + Click is UIEvent > KeyboardEvent, so the detail is 0.
+     */
+    handleDropdown () {
+      const isTriggerByTab = event.detail === 0
+      if (isTriggerByTab) this.setOpen(!this.open)
+    }
+  }
 }
 </script>
 

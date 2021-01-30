@@ -3,7 +3,7 @@
     v-if="userLinks.length || repoLink"
     class="nav-links"
   >
-    <!-- 导航链接 -->
+    <!-- user links -->
     <div
       v-for="item in userLinks"
       :key="item.link"
@@ -19,7 +19,7 @@
       />
     </div>
 
-    <!-- Git 仓库和编辑链接 -->
+    <!-- repo link -->
     <a
       v-if="repoLink"
       :href="repoLink"
@@ -34,22 +34,23 @@
 </template>
 
 <script>
-import DropdownLink from './DropdownLink.vue';
-import NavLink from './NavLink.vue';
-import { resolveNavLinkItem } from '../util';
+import DropdownLink from './DropdownLink.vue'
+import { resolveNavLinkItem } from '../util'
+import NavLink from './NavLink.vue'
 
 export default {
   name: 'NavLinks',
 
   components: {
-    DropdownLink,
     NavLink,
+    DropdownLink
   },
 
   computed: {
     userNav () {
       return this.$themeLocaleConfig.nav || this.$site.themeConfig.nav || []
     },
+
     nav () {
       const { locales } = this.$site
       if (locales && Object.keys(locales).length > 1) {
@@ -81,17 +82,15 @@ export default {
       }
       return this.userNav
     },
-    // 配置的导航栏列表数据
+
     userLinks () {
-      console.log('this.nav：', this.nav);
       return (this.nav || []).map(link => {
-        console.log(link);
         return Object.assign(resolveNavLinkItem(link), {
           items: (link.items || []).map(resolveNavLinkItem)
         })
       })
     },
-    // Git 仓库和编辑链接
+
     repoLink () {
       const { repo } = this.$site.themeConfig
       if (repo) {
@@ -101,7 +100,25 @@ export default {
       }
       return null
     },
-  },
+
+    repoLabel () {
+      if (!this.repoLink) return
+      if (this.$site.themeConfig.repoLabel) {
+        return this.$site.themeConfig.repoLabel
+      }
+
+      const repoHost = this.repoLink.match(/^https?:\/\/[^/]+/)[0]
+      const platforms = ['GitHub', 'GitLab', 'Bitbucket']
+      for (let i = 0; i < platforms.length; i++) {
+        const platform = platforms[i]
+        if (new RegExp(platform, 'i').test(repoHost)) {
+          return platform
+        }
+      }
+
+      return 'Source'
+    }
+  }
 }
 </script>
 
