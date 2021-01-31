@@ -104,11 +104,13 @@ export default {
 
     pageClasses () {
       const userPageClass = this.$page.frontmatter.pageClass
+      const userPageTheme = this.$page.frontmatter.pageTheme === 'cheatsheet'
       return [
         {
           'no-navbar': !this.shouldShowNavbar,
           'sidebar-open': this.isSidebarOpen,
-          'no-sidebar': !this.shouldShowSidebar
+          'no-sidebar': !this.shouldShowSidebar,
+          'cheatsheet': userPageTheme,
         },
         userPageClass
       ]

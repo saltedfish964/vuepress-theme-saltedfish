@@ -8,14 +8,14 @@ module.exports = (options, ctx) => {
   const isAlgoliaSearch = (
     themeConfig.algolia
     || Object
-        .keys(siteConfig.locales && themeConfig.locales || {})
-        .some(base => themeConfig.locales[base].algolia)
+      .keys(siteConfig.locales && themeConfig.locales || {})
+      .some(base => themeConfig.locales[base].algolia)
   )
 
   const enableSmoothScroll = themeConfig.smoothScroll === true
 
   return {
-    alias () {
+    alias() {
       return {
         '@AlgoliaSearchBox': isAlgoliaSearch
           ? path.resolve(__dirname, 'components/AlgoliaSearchBox.vue')
@@ -53,7 +53,7 @@ module.exports = (options, ctx) => {
         before: info => `<details class="custom-block details">${info ? `<summary>${info}</summary>` : ''}\n`,
         after: () => '</details>\n'
       }],
-      ['smooth-scroll', enableSmoothScroll]
+      ['smooth-scroll', true]
     ]
   }
 }
