@@ -162,27 +162,25 @@ export default {
   }
 
   .mobile-dropdown-title {
-    .dropdown-title {
-      display: block;
-      font-size: 0.9rem;
-      font-family: inherit;
-      cursor: inherit;
-      padding: inherit;
-      line-height: 1.4rem;
-      background: transparent;
-      border: none;
-      font-weight: 500;
-      color: $textColor;
+    display: block;
+    font-size: 0.9rem;
+    font-family: inherit;
+    cursor: inherit;
+    padding: inherit;
+    line-height: 1.4rem;
+    background: transparent;
+    border: none;
+    font-weight: 500;
+    color: $textColor;
 
-      &:hover {
-        border-color: transparent;
-      }
+    &:hover {
+      border-color: transparent;
+    }
 
-      .arrow {
-        vertical-align: middle;
-        margin-top: -1px;
-        margin-left: 0.4rem;
-      }
+    .arrow {
+      vertical-align: middle;
+      margin-top: -1px;
+      margin-left: 0.4rem;
     }
 
     display: none;
