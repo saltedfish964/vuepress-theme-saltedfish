@@ -1,4 +1,5 @@
 const path = require('path')
+const cheatsheetContainer = require('./plugin/cheatsheet-container/index')
 
 // Theme API.
 module.exports = (options, ctx) => {
@@ -53,7 +54,8 @@ module.exports = (options, ctx) => {
         before: info => `<details class="custom-block details">${info ? `<summary>${info}</summary>` : ''}\n`,
         after: () => '</details>\n'
       }],
-      ['smooth-scroll', true]
+      ['smooth-scroll', true],
+      cheatsheetContainer,
     ]
   }
 }

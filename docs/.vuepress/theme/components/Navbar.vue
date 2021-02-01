@@ -30,9 +30,7 @@
         v-if="isAlgoliaSearch"
         :options="algolia"
       /> -->
-      <!-- <SearchBox
-        v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"
-      /> -->
+      <SearchBox v-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false" />
       <NavLinks class="can-hide" />
     </div>
   </header>
@@ -40,7 +38,7 @@
 
 <script>
 // import AlgoliaSearchBox from '@AlgoliaSearchBox'
-// import SearchBox from '@SearchBox'
+import SearchBox from '@SearchBox'
 import SidebarButton from './SidebarButton.vue'
 import NavLinks from './NavLinks.vue'
 
@@ -50,7 +48,7 @@ export default {
   components: {
     SidebarButton,
     NavLinks,
-    // SearchBox,
+    SearchBox,
     // AlgoliaSearchBox
   },
 

@@ -1,5 +1,7 @@
 ---
 pageTheme: cheatsheet
+tags:
+  - vue
 ---
 ## 插值
 
