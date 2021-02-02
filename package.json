@@ -1,8 +1,9 @@
 {
   "name": "vuepress-theme-saltedfish",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "docs/.vuepress/theme/index.js",
+  "man": "docs/.vuepress/theme",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
