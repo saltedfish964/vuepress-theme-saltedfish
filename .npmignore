@@ -1,0 +1,11 @@
+node_modules
+
+docs/*.md
+
+docs/cheatsheet/
+
+docs/.vuepress/dist/
+
+docs/.vuepress/public/
+
+docs/.vuepress/config.js
