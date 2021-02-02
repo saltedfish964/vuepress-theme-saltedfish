@@ -1,17 +1,21 @@
 {
   "name": "vuepress-theme-saltedfish",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": ".vuepress/theme/index.js",
   "scripts": {
     "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "build": "vuepress build docs",
+    "release": "standard-version && npm publish"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/saltedfish964/vuepress-theme-saltedfish.git"
   },
-  "keywords": [],
+  "keywords": [
+    "vuepress",
+    "vuepress-theme"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
