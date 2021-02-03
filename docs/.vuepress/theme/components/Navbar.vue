@@ -1,6 +1,12 @@
 <template>
-  <header class="navbar">
-    <SidebarButton @toggle-sidebar="$emit('toggle-sidebar')" />
+  <header
+    class="navbar"
+    :style="navbarStyle"
+  >
+    <SidebarButton
+      v-if="$page.frontmatter.sidebar !== false"
+      @toggle-sidebar="$emit('toggle-sidebar')"
+    />
 
     <RouterLink
       :to="$localePath"
@@ -67,7 +73,13 @@ export default {
 
     isAlgoliaSearch () {
       return this.algolia && this.algolia.apiKey && this.algolia.indexName
-    }
+    },
+
+    navbarStyle () {
+      return {
+        "padding-left": this.$page.frontmatter.sidebar === false && "1.5rem"
+      }
+    },
   },
 
   mounted () {

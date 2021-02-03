@@ -11,4 +11,5 @@ cheatsheetsSort:
   link: /cheatsheet/vue
 - text: npm
   link: /cheatsheet/vue
+sidebar: false
 ---
