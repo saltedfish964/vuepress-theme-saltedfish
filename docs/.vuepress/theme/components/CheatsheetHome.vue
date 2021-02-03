@@ -104,7 +104,7 @@ export default {
       height: 3rem;
       border-radius: 1.5rem;
       box-sizing: border-box;
-      padding: 0.5rem;
+      padding: 0 1rem;
       font-size: 1.25rem;
       border: 1px solid #cfd4db;
     }
