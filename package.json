@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/saltedfish964/vuepress-theme-saltedfish#readme",
   "devDependencies": {
+    "fuse.js": "^6.4.6",
     "standard-version": "^9.1.0",
     "vuepress": "^1.8.0"
   }

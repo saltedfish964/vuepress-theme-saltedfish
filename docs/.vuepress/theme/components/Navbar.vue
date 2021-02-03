@@ -26,18 +26,20 @@
         'max-width': linksWrapMaxWidth + 'px'
       } : {}"
     >
-      <!-- <AlgoliaSearchBox
+      <AlgoliaSearchBox
         v-if="isAlgoliaSearch"
         :options="algolia"
-      /> -->
-      <SearchBox v-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false" />
+      />
+      <SearchBox
+        v-else-if="$site.themeConfig.search !== false && $page.frontmatter.search !== false"
+      />
       <NavLinks class="can-hide" />
     </div>
   </header>
 </template>
 
 <script>
-// import AlgoliaSearchBox from '@AlgoliaSearchBox'
+import AlgoliaSearchBox from '@AlgoliaSearchBox'
 import SearchBox from '@SearchBox'
 import SidebarButton from './SidebarButton.vue'
 import NavLinks from './NavLinks.vue'
@@ -49,7 +51,7 @@ export default {
     SidebarButton,
     NavLinks,
     SearchBox,
-    // AlgoliaSearchBox
+    AlgoliaSearchBox
   },
 
   data () {
@@ -63,9 +65,9 @@ export default {
       return this.$themeLocaleConfig.algolia || this.$site.themeConfig.algolia || {}
     },
 
-    // isAlgoliaSearch () {
-    //   return this.algolia && this.algolia.apiKey && this.algolia.indexName
-    // }
+    isAlgoliaSearch () {
+      return this.algolia && this.algolia.apiKey && this.algolia.indexName
+    }
   },
 
   mounted () {

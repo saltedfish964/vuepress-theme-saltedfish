@@ -27,7 +27,11 @@
       </template>
     </Sidebar>
 
-    <Home v-if="$page.frontmatter.home" />
+    <Home v-if="$page.frontmatter.home && !$page.frontmatter.homeTheme" />
+
+    <CheatsheetHome
+      v-else-if="$page.frontmatter.home && $page.frontmatter.homeTheme === 'cheatsheet'"
+    />
 
     <Page
       v-else
@@ -45,6 +49,7 @@
 
 <script>
 import Home from '../components/Home.vue'
+import CheatsheetHome from '../components/CheatsheetHome.vue'
 import Navbar from '../components/Navbar.vue'
 import Page from '../components/Page.vue'
 import Sidebar from '../components/Sidebar.vue'
@@ -55,6 +60,7 @@ export default {
 
   components: {
     Home,
+    CheatsheetHome,
     Page,
     Sidebar,
     Navbar
