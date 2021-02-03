@@ -16,7 +16,6 @@
     />
 
     <Sidebar
-      v-if="$page.frontmatter.sidebar !== false"
       :items="sidebarItems"
       @toggle-sidebar="toggleSidebar"
     >

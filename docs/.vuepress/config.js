@@ -3,7 +3,7 @@ module.exports = {
   description: 'Just playing around',
   themeConfig: {
     logo: '/logo.svg',
-    nav: [],
+    // nav: [{ text: 'Home', link: '/' },],
     sidebar: {
       '/cheatsheet/': [
         ['vue', 'vue'],
