@@ -2,7 +2,13 @@
   <main class="page">
     <slot name="top" />
 
-    <Content class="theme-saltedfish-content" />
+    <transition
+      name="fade-in-right"
+      mode="out-in"
+      appear
+    >
+      <Content class="theme-saltedfish-content" />
+    </transition>
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />
@@ -17,7 +23,7 @@ import PageNav from './PageNav.vue'
 
 export default {
   components: { PageEdit, PageNav },
-  props: ['sidebarItems']
+  props: ['sidebarItems'],
 }
 </script>
 
@@ -27,5 +33,76 @@ export default {
 .page {
   padding-bottom: 2rem;
   display: block;
+  overflow: hidden;
+}
+
+// fade
+.fade-enter-active, .fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+// fade-in-up
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translate3d(0, 40px, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.fade-in-up-leave-to {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fade-in-up-enter {
+  opacity: 0;
+  transform: translate3d(0, 40px, 0);
+}
+
+.fade-in-up-enter-to {
+  opacity: 0;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+  animation-name: fadeInUp;
+}
+
+// fade-in-right
+@keyframes fadeInRight {
+  from {
+    transform: translate3d(40px, 0, 0);
+    perspective: 1px;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.fade-in-right-leave-to {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fade-in-right-enter {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.fade-in-right-enter-to {
+  opacity: 0;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+  animation-name: fadeInRight;
 }
 </style>
