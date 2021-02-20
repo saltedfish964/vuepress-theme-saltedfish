@@ -3,12 +3,15 @@
     <slot name="top" />
 
     <transition
-      name="fade-in-up"
+      :name="contentTransition"
       mode="out-in"
       appear
     >
       <Content class="theme-saltedfish-content" />
     </transition>
+
+    {{ data }}
+
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />
@@ -24,6 +27,19 @@ import PageNav from './PageNav.vue'
 export default {
   components: { PageEdit, PageNav },
   props: ['sidebarItems'],
+  computed: {
+    data () {
+      return this.$page.frontmatter
+    },
+    contentTransition() {
+      let transitionList = ['fade', 'fade-in-up', 'fade-in-right', 'fade-in-down', 'fade-in-left']
+      if (this.data.contentTransition) {
+        return transitionList.includes(this.data.contentTransition) ? this.data.contentTransition : 'fade'
+      } else {
+        return transitionList.includes(this.$themeConfig.contentTransition) ? this.$themeConfig.contentTransition : 'fade'
+      }
+    },
+  },
 }
 </script>
 
@@ -38,7 +54,7 @@ export default {
 
 // fade
 .fade-enter-active, .fade-leave-active {
-  transition-duration: 0.3s;
+  transition-duration: 0.7s;
   transition-property: opacity;
   transition-timing-function: ease;
 }

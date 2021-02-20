@@ -8,9 +8,11 @@ module.exports = {
     logo: '/logo.svg',
     // nav: [{ text: 'Home', link: '/' },],
     search: false,
+    contentTransition: 'fade-in-up',
     sidebar: {
       '/cheatsheet/': [
         ['vue', 'vue'],
+        ['vue2', 'vue2'],
       ]
     },
   },

@@ -27,6 +27,7 @@
     "vuepress": "^1.8.0"
   },
   "dependencies": {
-    "fuse.js": "^6.4.6"
+    "fuse.js": "^6.4.6",
+    "vueisotope": "^3.1.2"
   }
 }
