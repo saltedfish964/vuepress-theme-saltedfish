@@ -3,7 +3,7 @@
     <slot name="top" />
 
     <transition
-      name="fade-in-right"
+      name="fade-in-up"
       mode="out-in"
       appear
     >
@@ -51,6 +51,7 @@ export default {
 @keyframes fadeInUp {
   from {
     transform: translate3d(0, 40px, 0);
+    perspective: 1px;
   }
 
   to {
@@ -104,5 +105,64 @@ export default {
   animation-duration: 0.7s;
   animation-fill-mode: both;
   animation-name: fadeInRight;
+}
+
+// fade-in-down
+@keyframes fadeInDown {
+  from {
+    transform: translate3d(0, -40px, 0);
+    perspective: 1px;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.fade-in-down-leave-to {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fade-in-down-enter {
+  opacity: 0;
+  transform: translate3d(0, -40px, 0);
+}
+
+.fade-in-down-enter-to {
+  opacity: 0;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+  animation-name: fadeInDown;
+}
+
+// fade-in-left
+@keyframes fadeInLeft {
+  from {
+    transform: translate3d(-40px, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.fade-in-left-leave-to {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fade-in-left-enter {
+  opacity: 0;
+  transform: translate3d(-40px, 0, 0);
+}
+
+.fade-in-left-enter-to {
+  opacity: 0;
+  animation-duration: 0.7s;
+  animation-fill-mode: both;
+  animation-name: fadeInLeft;
 }
 </style>

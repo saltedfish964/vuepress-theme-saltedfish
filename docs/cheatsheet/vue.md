@@ -321,6 +321,7 @@ See: [Slots](https://vuejs.org/v2/guide/components-slots.html)
 
 ::: cheatsheet
 #### Component template
+
 ```html {3,6,9}
 <div class="container">
   <header>
@@ -336,6 +337,7 @@ See: [Slots](https://vuejs.org/v2/guide/components-slots.html)
 ```
 
 #### Use of component with data for slots
+
 ```html {2,3,4}
 <app-layout>
   <h1 slot="header">Page title</h1>
