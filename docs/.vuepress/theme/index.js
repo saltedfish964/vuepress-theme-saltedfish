@@ -1,5 +1,6 @@
 const path = require('path')
 const cheatsheetContainer = require('./plugin/cheatsheet-container/index')
+const demoContainer = require('./plugin/demo-container/index')
 
 // Theme API.
 module.exports = (options, ctx) => {
@@ -56,6 +57,7 @@ module.exports = (options, ctx) => {
       }],
       ['smooth-scroll', true],
       cheatsheetContainer,
+      demoContainer,
     ]
   }
 }
