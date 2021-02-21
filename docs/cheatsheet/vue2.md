@@ -4,7 +4,7 @@ contentTransition: fade-in-right
 tags:
   - vue
 ---
-## 插值
+## 插值 
 
 ::: cheatsheet
 ```html

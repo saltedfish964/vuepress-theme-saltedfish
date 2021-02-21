@@ -6,6 +6,7 @@ const renderDemoBlock = require('./common/render')
 const demoBlockContainers = require('./common/containers')
 module.exports = (options = {}, ctx) => {
   return {
+    name: 'demo-container',
     enhanceAppFiles: path.resolve(__dirname, './enhanceAppFile.js'),
     chainMarkdown(config) {
       config.plugin('containers')

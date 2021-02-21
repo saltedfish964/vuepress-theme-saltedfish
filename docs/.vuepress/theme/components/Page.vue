@@ -10,8 +10,6 @@
       <Content class="theme-saltedfish-content" />
     </transition>
 
-    {{ data }}
-
     <PageEdit />
 
     <PageNav v-bind="{ sidebarItems }" />

@@ -177,6 +177,8 @@ export default {
   transition: 0.2s;
   margin-top: 15px;
   margin-bottom: 15px;
+  position: relative;
+  z-index: 1;
 }
 .demo-block.hover {
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6),
@@ -251,6 +253,7 @@ export default {
   border-bottom: 6px solid #ccc;
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
+  transform: translateY(50%);
 }
 .demo-block .demo-block-control .caret-bottom::before {
   content: "";
@@ -261,6 +264,7 @@ export default {
   border-top: 6px solid #ccc;
   border-right: 6px solid transparent;
   border-left: 6px solid transparent;
+  transform: translateY(50%);
 }
 .demo-block .demo-block-control i {
   font-size: 16px;

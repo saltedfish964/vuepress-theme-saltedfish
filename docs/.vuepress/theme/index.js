@@ -1,6 +1,6 @@
 const path = require('path')
-const cheatsheetContainer = require('./plugin/cheatsheet-container/index')
-const demoContainer = require('./plugin/demo-container/index')
+const cheatsheetContainer = require('./plugin/cheatsheet-container/index.js')
+const demoContainer = require('./plugin/demo-container/index.js')
 
 // Theme API.
 module.exports = (options, ctx) => {

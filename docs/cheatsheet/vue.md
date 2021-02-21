@@ -3,9 +3,26 @@ pageTheme: cheatsheet
 tags:
   - vue
 ---
+
+:::demo
+```vue
+<template>
+  <h1>AAA</h1>
+</template>
+```
+:::
+
 ## 插值
 
-::: cheatsheet
+:::demo
+```vue
+<template>
+  <h1>AAA</h1>
+</template>
+```
+:::
+
+:::cheatsheet
 ```html
 <div id="app">
   <p>I have a {{ product }}</p>
