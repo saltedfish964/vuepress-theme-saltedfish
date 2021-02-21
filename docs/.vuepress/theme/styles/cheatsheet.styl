@@ -1,6 +1,6 @@
 .cheatsheet {
   min-height: 100vh;
-  background: #f1f3f5;
+  background: #ffffff;
   .page {
     background: #f1f3f5;
   }
@@ -24,6 +24,17 @@
     }
     div[class*="language-"] .highlight-lines .highlighted {
       background: linear-gradient(to right,rgba(20,175,131,0.05) 25%,transparent);
+    }
+    div[class*="language-"].line-numbers-mode::after {
+      border-radius: 0;
+      background: #fff;
+      border-color: #e0e3e6;
+    }
+    div[class*="language-"].line-numbers-mode .line-numbers-wrapper {
+      color: #2378a1;
+    }
+    div[class*="language-"].line-numbers-mode .highlight-lines .highlighted:before {
+      background: rgba(20,175,131,0.05);
     }
     & > :not(:first-child) {
       border-radius: 0;

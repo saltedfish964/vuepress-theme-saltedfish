@@ -6,7 +6,47 @@ cheatsheetsSort:
 - text: vue
   link: /cheatsheet/vue
 - text: react
+  link: /cheatsheet/vue2
+- text: vue3
   link: /cheatsheet/vue
+- text: npm
+  link: /cheatsheet/vue
+- text: vue
+  link: /cheatsheet/vue
+- text: react
+  link: /cheatsheet/vue2
+- text: vue3
+  link: /cheatsheet/vue
+- text: npm
+  link: /cheatsheet/vue
+- text: vue
+  link: /cheatsheet/vue
+- text: react
+  link: /cheatsheet/vue2
+- text: vue3
+  link: /cheatsheet/vue
+- text: npm
+  link: /cheatsheet/vue
+- text: vue
+  link: /cheatsheet/vue
+- text: react
+  link: /cheatsheet/vue2
+- text: vue3
+  link: /cheatsheet/vue
+- text: npm
+  link: /cheatsheet/vue
+- text: vue
+  link: /cheatsheet/vue
+- text: react
+  link: /cheatsheet/vue2
+- text: vue3
+  link: /cheatsheet/vue
+- text: npm
+  link: /cheatsheet/vue
+- text: vue
+  link: /cheatsheet/vue
+- text: react
+  link: /cheatsheet/vue2
 - text: vue3
   link: /cheatsheet/vue
 - text: npm

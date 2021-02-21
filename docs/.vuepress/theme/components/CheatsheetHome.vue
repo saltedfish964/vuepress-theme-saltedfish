@@ -16,18 +16,24 @@
       />
     </div>
 
-    <div
-      class="sort"
-      v-if="data.cheatsheetsSort"
-    >
-      <div
-        class="sort-item"
-        v-for="(item, index) in showList"
-        :key="index"
+    <div>
+      <transition-group
+        name="list-complete"
+        tag="div"
+        class="sort"
+        v-if="data.cheatsheetsSort"
       >
-        <RouterLink :to="item.link">{{ item.text }}</RouterLink>
-        <span class="icon"></span>
-      </div>
+        <RouterLink
+          :to="item.link"
+          tag="div"
+          class="sort-item"
+          v-for="(item, index) in showList"
+          :key="index"
+        >
+          <span>{{ item.text }}</span>
+          <span class="icon"></span>
+        </RouterLink>
+      </transition-group>
     </div>
 
     <Content class="theme-saltedfish-content custom" />
@@ -99,32 +105,45 @@ export default {
     padding: 2rem 0;
 
     input {
+      color: #fff;
       outline: 0;
-      width: 20rem;
+      width: 25rem;
       height: 3rem;
-      border-radius: 1.5rem;
+      border-radius: 0.2rem;
       box-sizing: border-box;
       padding: 0 1rem;
       font-size: 1.25rem;
-      border: 1px solid #cfd4db;
+      border: 0;
+      font-weight: bold;
+      background: #252830;
+
+      &:focus {
+        background: #2c303a;
+      }
     }
   }
 
   .sort {
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
+    padding-bottom: 2rem;
 
     .sort-item {
-      flex: 0 0 50%;
-      color: #111;
-      font-weight: normal;
-      padding: 0.5rem 0;
+      transition: all 0.5s;
+      display: inline-block;
       text-align: center;
+      padding: 10px 15px;
+      margin: 10px;
+      font-size: 18px;
+      background-color: #efefef;
+      border-radius: 3px;
+      box-shadow: 0 1px 2px rgb(0 0 0 / 30%);
+      cursor: pointer;
 
       &:hover {
-        .icon {
-          background: #77dab2;
-        }
+        color: white;
+        background: #009bd5;
       }
 
       .icon {
@@ -132,13 +151,8 @@ export default {
         width: 0.5rem;
         height: 0.5rem;
         border-radius: 50%;
-        background: transparent;
+        background: #77dab2;
         display: inline-block;
-      }
-
-      a {
-        color: #111;
-        font-weight: normal;
       }
     }
   }
@@ -149,6 +163,15 @@ export default {
     text-align: center;
     color: lighten($textColor, 25%);
   }
+}
+
+.list-complete-enter, .list-complete-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.list-complete-leave-active {
+  position: absolute;
 }
 
 @media (max-width: $MQMobile) {

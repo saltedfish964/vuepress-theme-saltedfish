@@ -1,5 +1,6 @@
 ---
 pageTheme: cheatsheet
+contentTransition: fade-in-right
 tags:
   - vue
 ---
