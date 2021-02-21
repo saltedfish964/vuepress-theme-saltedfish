@@ -1,5 +1,4 @@
 ---
-pageTheme: cheatsheet
 tags:
   - vue
 ---
@@ -14,15 +13,7 @@ tags:
 
 ## 插值
 
-:::demo
-```vue
-<template>
-  <h1>AAA</h1>
-</template>
-```
-:::
-
-:::cheatsheet
+::: cheatsheet
 ```html
 <div id="app">
   <p>I have a {{ product }}</p>
