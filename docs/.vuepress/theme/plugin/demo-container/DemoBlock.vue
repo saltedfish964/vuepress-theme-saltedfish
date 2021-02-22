@@ -36,6 +36,10 @@
         <span v-show="hovering">{{ controlText }}</span>
       </transition>
       <span
+        :class="['copy-action']"
+        @click.stop="copyCode"
+      >{{ langConfig['copy-text'] }}</span>
+      <!-- <span
         v-show="!copied"
         :class="['copy-action', { 'copying ': copied }]"
         @click.stop="copyCode"
@@ -45,18 +49,19 @@
           v-show="copied"
           class="copy-action copy-action-success"
         >{{ copiedText }}</span>
-      </transition>
+      </transition> -->
     </div>
   </div>
 </template>
 
 <script type="text/babel">
+import Message from '../message/Message';
 import defaultLang from './i18n/default_lang.json';
 export default {
   data() {
     return {
       hovering: false,
-      copied: false,
+      // copied: false,
       isExpanded: false,
       fixedControl: false,
       codeContentWidth: 0,
@@ -89,9 +94,9 @@ export default {
     controlText() {
       return this.isExpanded ? this.langConfig['hide-text'] : this.langConfig['show-text'];
     },
-    copiedText() {
-      return this.copied ? this.langConfig['copy-success'] : this.langConfig['copy-text'];
-    },
+    // copiedText() {
+    //   return this.copied ? this.langConfig['copy-success'] : this.langConfig['copy-text'];
+    // },
     codeArea() {
       return this.$el.getElementsByClassName("meta")[0];
     },
@@ -108,23 +113,48 @@ export default {
   },
   methods: {
     copyCode() {
-      if (this.copied) {
-        return;
+      const pre = this.$el.querySelectorAll("pre")[0];
+      const el = document.createElement('textarea')
+      el.value = pre.innerText
+      el.setAttribute('readonly', '')
+      el.style.position = 'absolute'
+      el.style.left = '-9999px'
+      document.body.appendChild(el)
+      const selected =
+        document.getSelection().rangeCount > 0 ?
+          document.getSelection().getRangeAt(0) :
+          false
+      el.select()
+
+      document.execCommand('copy')
+      const message = new Message()
+      message.show({
+        text: COPY_MESSAGE,
+        duration: DURATION
+      })
+      document.body.removeChild(el)
+      if (selected) {
+        document.getSelection().removeAllRanges()
+        document.getSelection().addRange(selected)
       }
-      if (!this.isExpanded) {
-        this.isExpanded = true;
-      } 
-      setTimeout(() => {
-        const pre = this.$el.querySelectorAll("pre")[0];
-        pre.setAttribute("contenteditable", "true");
-        pre.focus();
-        document.execCommand("selectAll", false, null);
-        this.copied = document.execCommand("copy");
-        pre.removeAttribute("contenteditable");
-      }, 550);
-      setTimeout(() => {
-        this.copied = false;
-      }, 1500);
+      // if (this.copied) {
+      //   return;
+      // }
+      // if (!this.isExpanded) {
+      //   this.isExpanded = true;
+      // } 
+      // setTimeout(() => {
+      //   const pre = this.$el.querySelectorAll("pre")[0];
+      //   console.log(pre.innerText);
+      //   pre.setAttribute("contenteditable", "true");
+      //   pre.focus();
+      //   document.execCommand("selectAll", false, null);
+      //   this.copied = document.execCommand("copy");
+      //   pre.removeAttribute("contenteditable");
+      // }, 550);
+      // setTimeout(() => {
+      //   this.copied = false;
+      // }, 1500);
     },
     scrollHandler() {
       const { top, bottom, left } = this.$refs.meta.getBoundingClientRect();
@@ -160,7 +190,7 @@ export default {
       let codeContent = this.$el.getElementsByClassName('code-content')[0];
       this.codeContentWidth = this.$el.offsetWidth
       if (this.$el.getElementsByClassName('description').length === 0) {
-        codeContent.style.width = "100%";
+        codeContent.style.width = "auto";
         codeContent.borderRight = "none";
       }
     });
@@ -286,9 +316,9 @@ export default {
   right: 0px;
   color: #409eff;
 }
-.demo-block .demo-block-control.copying {
+/* .demo-block .demo-block-control.copying {
   transform: translateX(-44px);
-}
+} */
 .demo-block .demo-block-control .copy-action-success {
   color: #67c23a;
 }
@@ -316,6 +346,9 @@ export default {
 @media (max-width: 419px) {
   .code-content {
     margin: 1rem;
+  }
+  .demo-block div[class*="language-"]::before {
+    right: 1.4rem;
   }
 }
 </style>

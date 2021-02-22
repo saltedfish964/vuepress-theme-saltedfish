@@ -27,11 +27,15 @@
           :to="item.link"
           tag="div"
           class="sort-item"
+          custom
+          v-slot="{ navigate }"
           v-for="(item, index) in showList"
           :key="index"
         >
-          <span>{{ item.text }}</span>
-          <span class="icon"></span>
+          <div @click="navigate">
+            <span>{{ item.text }}</span>
+            <span class="icon"></span>
+          </div>
         </RouterLink>
       </transition-group>
     </div>
