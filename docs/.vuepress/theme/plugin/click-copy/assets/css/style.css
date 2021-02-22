@@ -27,10 +27,10 @@ div[class*="aside-code"] aside:hover .code-copy {
   overflow-y: hidden;
 }
 
-div[class*="language-"] pre,
+/* div[class*="language-"] pre,
 div[class*="language-"] pre[class*="language-"] {
   position: static !important;
-}
+} */
 
 div[class~="language-text"]:before {
   content: "text";
