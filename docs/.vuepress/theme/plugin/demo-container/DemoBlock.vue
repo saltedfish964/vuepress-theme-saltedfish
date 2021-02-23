@@ -129,7 +129,7 @@ export default {
       document.execCommand('copy')
       const message = new Message()
       message.show({
-        text: COPY_MESSAGE,
+        text: this.langConfig['copy-success'],
         duration: DURATION
       })
       document.body.removeChild(el)

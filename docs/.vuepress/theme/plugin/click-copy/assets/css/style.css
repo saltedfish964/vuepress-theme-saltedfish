@@ -10,10 +10,10 @@ div[class*="language-"] pre .code-copy,
 div[class*="aside-code"] aside .code-copy {
   position : absolute;
   z-index  : 15;
-  top      : 9px;
-  right    : 40px;
+  top      : 0.8em;
+  right    : 2.5em;
   opacity  : 0;
-  font-size: 16px;
+  font-size: 1em;
 }
 
 div[class*="language-"] pre:hover .code-copy,
