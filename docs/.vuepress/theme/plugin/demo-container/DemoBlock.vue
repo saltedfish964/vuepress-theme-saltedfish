@@ -39,17 +39,6 @@
         :class="['copy-action']"
         @click.stop="copyCode"
       >{{ langConfig['copy-text'] }}</span>
-      <!-- <span
-        v-show="!copied"
-        :class="['copy-action', { 'copying ': copied }]"
-        @click.stop="copyCode"
-      >{{ copiedText }}</span>
-      <transition name="bounce">
-        <span
-          v-show="copied"
-          class="copy-action copy-action-success"
-        >{{ copiedText }}</span>
-      </transition> -->
     </div>
   </div>
 </template>
@@ -57,11 +46,11 @@
 <script type="text/babel">
 import Message from '../message/Message';
 import defaultLang from './i18n/default_lang.json';
+
 export default {
   data() {
     return {
       hovering: false,
-      // copied: false,
       isExpanded: false,
       fixedControl: false,
       codeContentWidth: 0,
@@ -94,9 +83,6 @@ export default {
     controlText() {
       return this.isExpanded ? this.langConfig['hide-text'] : this.langConfig['show-text'];
     },
-    // copiedText() {
-    //   return this.copied ? this.langConfig['copy-success'] : this.langConfig['copy-text'];
-    // },
     codeArea() {
       return this.$el.getElementsByClassName("meta")[0];
     },
@@ -137,24 +123,6 @@ export default {
         document.getSelection().removeAllRanges()
         document.getSelection().addRange(selected)
       }
-      // if (this.copied) {
-      //   return;
-      // }
-      // if (!this.isExpanded) {
-      //   this.isExpanded = true;
-      // } 
-      // setTimeout(() => {
-      //   const pre = this.$el.querySelectorAll("pre")[0];
-      //   console.log(pre.innerText);
-      //   pre.setAttribute("contenteditable", "true");
-      //   pre.focus();
-      //   document.execCommand("selectAll", false, null);
-      //   this.copied = document.execCommand("copy");
-      //   pre.removeAttribute("contenteditable");
-      // }, 550);
-      // setTimeout(() => {
-      //   this.copied = false;
-      // }, 1500);
     },
     scrollHandler() {
       const { top, bottom, left } = this.$refs.meta.getBoundingClientRect();

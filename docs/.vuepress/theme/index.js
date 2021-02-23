@@ -3,11 +3,10 @@ const cheatsheetContainer = require('./plugin/cheatsheet-container/index')
 const demoContainer = require('./plugin/demo-container/index')
 const clickCopy = require('./plugin/click-copy/index')
 
-function initClickCopyConfig(themeConfig) {
-  const { clickCopy } = themeConfig
-  const isObj = Object.prototype.toString.call(clickCopy) === '[object Object]'
+function checkObj(obj) {
+  const isObj = Object.prototype.toString.call(obj) === '[object Object]'
 
-  return isObj ? clickCopy : {}
+  return isObj ? obj : {}
 }
 
 // Theme API.
@@ -24,7 +23,7 @@ module.exports = (options, ctx) => {
 
   const enableSmoothScroll = themeConfig.smoothScroll === true
 
-  const clickCopyConfig = initClickCopyConfig(themeConfig)
+  const clickCopyConfig = checkObj(themeConfig.clickCopy)
 
   return {
     alias() {
