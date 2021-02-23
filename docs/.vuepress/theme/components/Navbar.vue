@@ -4,7 +4,7 @@
     :style="navbarStyle"
   >
     <SidebarButton
-      v-if="this.$site.themeConfig.nav || this.$page.headers"
+      v-if="$site.locales || $site.themeConfig.nav || $page.headers"
       @toggle-sidebar="$emit('toggle-sidebar')"
     />
 
@@ -77,7 +77,7 @@ export default {
 
     navbarStyle () {
       return {
-        "padding-left": (this.$site.themeConfig.nav || this.$page.headers) ? '' : '1.5rem'
+        "padding-left": (this.$site.locales || this.$site.themeConfig.nav || this.$page.headers) ? '' : '1.5rem'
       }
     },
   },

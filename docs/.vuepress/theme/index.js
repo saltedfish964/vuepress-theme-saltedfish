@@ -3,6 +3,13 @@ const cheatsheetContainer = require('./plugin/cheatsheet-container/index')
 const demoContainer = require('./plugin/demo-container/index')
 const clickCopy = require('./plugin/click-copy/index')
 
+function initClickCopyConfig(themeConfig) {
+  const { clickCopy } = themeConfig
+  const isObj = Object.prototype.toString.call(clickCopy) === '[object Object]'
+
+  return isObj ? clickCopy : {}
+}
+
 // Theme API.
 module.exports = (options, ctx) => {
   const { themeConfig, siteConfig } = ctx
@@ -16,6 +23,8 @@ module.exports = (options, ctx) => {
   )
 
   const enableSmoothScroll = themeConfig.smoothScroll === true
+
+  const clickCopyConfig = initClickCopyConfig(themeConfig)
 
   return {
     alias() {
@@ -59,12 +68,7 @@ module.exports = (options, ctx) => {
       ['smooth-scroll', true],
       cheatsheetContainer,
       demoContainer,
-      [clickCopy, {
-        copySelector: ['div[class*="language-"] pre', 'div[class*="aside-code"] aside'], // String or Array
-        copyMessage: '复制成功', // default is 'Copy successfully and then paste it for use.'
-        duration: 1500, // prompt message display time.
-        showInMobile: false // whether to display on the mobile side, default: false.
-      }],
+      [clickCopy, clickCopyConfig],
     ]
   }
 }
