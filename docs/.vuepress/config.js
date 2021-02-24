@@ -29,10 +29,21 @@ module.exports = {
         label: 'English',
       },
     },
-    // nav: [{ text: 'Home', link: '/' },],
+    nav: [{ text: '指南', link: '/docs/introduce' },],
     search: false,
     contentTransition: 'fade-in-up',
     sidebar: {
+      '/docs/': [
+        {
+          title: '指南',
+          collapsable: false,
+          children: [
+            ['/docs/introduce', '介绍'],
+            ['/docs/getting-started', '快速开始'],
+            ['/docs/theme-config', '主题配置'],
+          ]
+        },
+      ],
       '/cheatsheet/': [
         ['vue', 'vue'],
         ['vue2', 'vue2'],
