@@ -3,7 +3,6 @@ import Message from '../message/Message'
 
 export default {
   mounted() {
-    console.log('倒萨倒萨倒萨大大:', this);
     const isMobile = !!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );

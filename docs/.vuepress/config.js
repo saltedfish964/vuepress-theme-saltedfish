@@ -30,7 +30,10 @@ module.exports = {
       '/': {
         selectText: '选择语言',
         label: '简体中文',
-        nav: [{ text: '指南', link: '/docs/introduce' },],
+        nav: [
+          { text: '指南', link: '/docs/' },
+          { text: '博客', link: '/blog/' },
+        ],
         sidebar: {
           '/docs/': [
             {
@@ -52,7 +55,7 @@ module.exports = {
       '/en/': {
         selectText: 'Languages',
         label: 'English',
-        nav: [{ text: 'Guid', link: '/docs/introduce' },],
+        nav: [{ text: 'Guid', link: '/en/docs/' },],
         sidebar: {
           '/en/docs/': [
             {

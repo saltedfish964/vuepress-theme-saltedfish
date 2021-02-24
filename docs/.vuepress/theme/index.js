@@ -68,6 +68,36 @@ module.exports = (options, ctx) => {
       cheatsheetContainer,
       demoContainer,
       [clickCopy, clickCopyConfig],
+      [
+        '@vuepress/blog',
+        {
+          directories: [
+            {
+              id: 'blog',
+              dirname: 'blog',
+              path: '/blog/',
+              itemPermalink: '/blog/:year/:month/:day/:slug',
+              layout: 'BlogLayout',
+              pagination: {
+                lengthPerPage: 10,
+              },
+            },
+          ],
+          frontmatters: [
+            {
+              id: "tag",
+              keys: ['tag', 'tags'],
+              path: '/tag/',
+              layout: 'Tag',
+              frontmatter: { title: 'Tag' },
+              itemlayout: 'Tag',
+              pagination: {
+                perPagePosts: 3
+              }
+            },
+          ]
+        },
+      ]
     ]
   }
 }
