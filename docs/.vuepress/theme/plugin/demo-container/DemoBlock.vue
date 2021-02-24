@@ -116,7 +116,7 @@ export default {
       const message = new Message()
       message.show({
         text: this.langConfig['copy-success'],
-        duration: DURATION
+        duration: 2000,
       })
       document.body.removeChild(el)
       if (selected) {

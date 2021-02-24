@@ -168,31 +168,3 @@ export default {
 </script>
 ```
 :::
-
-此容器也可以进行国际化配置，配置如下：
-
-``` js
-// .vuepress/config.js
-module.exports = {
-  locales: {
-    '/': {
-      lang: 'zh-CN',
-      "demo-block": {
-        "hide-text": "隐藏代码",
-        "show-text": "显示代码",
-        "copy-text": "复制代码",
-        "copy-success": "复制成功"
-      }
-    },
-    '/en/': {
-      lang: 'en-US',
-      "demo-block": {
-        "hide-text": "Hide",
-        "show-text": "Expand",
-        "copy-text": "Copy",
-        "copy-success": "Successful"
-      }
-    }
-  }
-}
-```

@@ -3,6 +3,7 @@ import Message from '../message/Message'
 
 export default {
   mounted() {
+    console.log('倒萨倒萨倒萨大大:', this);
     const isMobile = !!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
@@ -59,7 +60,7 @@ export default {
       document.execCommand('copy')
       const message = new Message()
       message.show({
-        text: COPY_MESSAGE,
+        text: this.$localeConfig.copyMessage || COPY_SELECTOR,
         duration: DURATION
       })
       document.body.removeChild(el)
