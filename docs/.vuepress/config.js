@@ -18,7 +18,12 @@ module.exports = {
   },
   themeConfig: {
     logo: '/logo.svg',
-    clickCopy: {},
+    clickCopy: {
+      copySelector: ['div[class*="language-"] pre', 'div[class*="aside-code"] aside'], // 代码块选择器
+      copyMessage: '复制成功', // 复制成功提示文本
+      duration: 3000, // 文本展示时间
+      showInMobile: false, // 是否在手机也显示复制按钮
+    },
     locales: {
       '/': {
         selectText: '选择语言',
@@ -31,7 +36,7 @@ module.exports = {
     },
     nav: [{ text: '指南', link: '/docs/introduce' },],
     search: false,
-    contentTransition: 'fade-in-up',
+    // contentTransition: 'fade-in-up',
     sidebar: {
       '/docs/': [
         {

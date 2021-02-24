@@ -48,6 +48,7 @@ export default {
   padding-bottom: 2rem;
   display: block;
   overflow: hidden;
+  min-height: calc(100vh - 2rem);
 }
 
 // fade

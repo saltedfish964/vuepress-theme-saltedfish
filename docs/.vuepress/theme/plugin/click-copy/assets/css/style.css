@@ -1,3 +1,12 @@
+.codecopy-enabled .code-copy {
+  position : absolute;
+  z-index  : 15;
+  top      : 0.8em;
+  right    : 2.5em;
+  opacity  : 0;
+  font-size: 1em;
+}
+
 .code-copy {
   color    : #aaa;
   fill     : #aaa;
@@ -6,7 +15,7 @@
   cursor   : pointer;
 }
 
-div[class*="language-"] pre .code-copy,
+/* div[class*="language-"] pre .code-copy,
 div[class*="aside-code"] aside .code-copy {
   position : absolute;
   z-index  : 15;
@@ -14,7 +23,7 @@ div[class*="aside-code"] aside .code-copy {
   right    : 2.5em;
   opacity  : 0;
   font-size: 1em;
-}
+} */
 
 div[class*="language-"] pre:hover .code-copy,
 div[class*="language-"]:hover .code-copy,
