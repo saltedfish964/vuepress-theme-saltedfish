@@ -61,9 +61,9 @@
               </li>
             </ul> -->
           </div>
-          <div class="pagination-box">
+          <!-- <div class="pagination-box">
             <Pagination></Pagination>
-          </div>
+          </div> -->
         </div>
         <div class="info"></div>
       </div>
@@ -74,7 +74,7 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-import { Pagination } from '@vuepress/plugin-blog/lib/client/components'
+// import { Pagination } from '@vuepress/plugin-blog/lib/client/components'
 import { resolveSidebarItems } from '../util'
 
 export default {
@@ -83,7 +83,7 @@ export default {
   components: {
     Sidebar,
     Navbar,
-    Pagination
+    // Pagination
   },
 
   data () {

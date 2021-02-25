@@ -78,11 +78,11 @@ module.exports = (options, ctx) => {
               path: '/blog/',
               itemPermalink: '/blog/:year/:month/:day/:slug',
               layout: 'BlogLayout',
-              pagination: {
-                lengthPerPage: 2,
-                prevText: '上一页',
-                nextText: '下一页',
-              },
+              // pagination: {
+              //   lengthPerPage: 2,
+              //   prevText: '上一页',
+              //   nextText: '下一页',
+              // },
             },
           ],
           frontmatters: [
@@ -99,6 +99,11 @@ module.exports = (options, ctx) => {
               scopeLayout: 'BlogLayout'
             },
           ],
+          globalPagination: {
+            lengthPerPage: 2,
+            prevText: '上一页',
+            nextText: '下一页',
+          },
         },
       ]
     ]
