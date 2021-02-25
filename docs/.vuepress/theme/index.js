@@ -79,23 +79,26 @@ module.exports = (options, ctx) => {
               itemPermalink: '/blog/:year/:month/:day/:slug',
               layout: 'BlogLayout',
               pagination: {
-                lengthPerPage: 10,
+                lengthPerPage: 2,
+                prevText: '上一页',
+                nextText: '下一页',
               },
             },
           ],
           frontmatters: [
             {
-              id: "tag",
-              keys: ['tag', 'tags'],
+              // Unique ID of current classification
+              id: 'tag',
+              // Decide that the frontmatter keys will be grouped under this classification
+              keys: ['tag'],
+              // Path of the `entry page` (or `list page`)
               path: '/tag/',
-              layout: 'Tag',
-              frontmatter: { title: 'Tag' },
-              itemlayout: 'Tag',
-              pagination: {
-                perPagePosts: 3
-              }
+              // Layout of the `entry page`
+              layout: 'BlogLayout',
+              // Layout of the `scope page`
+              scopeLayout: 'BlogLayout'
             },
-          ]
+          ],
         },
       ]
     ]
