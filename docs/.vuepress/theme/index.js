@@ -84,15 +84,20 @@ module.exports = (options, ctx) => {
             {
               id: 'tag',
               keys: ['tag'],
-              path: '/tag/',
-              layout: 'BlogLayout',
-              scopeLayout: 'BlogLayout'
+              path: '/blog/tag/',
+              scopeLayout: 'BlogLayout',
+              pagination: {
+                prevText: '上一页',
+                nextText: '下一页',
+                lengthPerPage: 10,
+              },
             },
           ],
           globalPagination: {
-            lengthPerPage: 2,
+            lengthPerPage: 10,
             prevText: '上一页',
             nextText: '下一页',
+            layout: 'BlogLayout',
             sorter: (prev, next) => {
               const dayjs = require('dayjs');
               const prevTime = dayjs(prev.frontmatter.date);

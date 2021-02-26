@@ -29,33 +29,15 @@
 
     <div class="blog">
       <div class="blog-box">
-        <div class="list-box">
-          <div class="list">
-            <div
-              class="item"
-              v-for="page in articleList"
-            >
-              <div class="image-wrap"></div>
-              <div class="extract">
-                <div class="date">
-                  <div class="month">{{ formatDate(page)['year'] }}</div>
-                  <div class="day">{{ formatDate(page)['monthAndDay'] }}</div>
-                </div>
-                <div class="detail">
-                  <h1
-                    class="title"
-                    @click="onDetail(page)"
-                  >{{ page.title }}</h1>
-                  <p v-if="page.frontmatter">{{ page.frontmatter.summary }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pagination-box">
-            <Pagination></Pagination>
-          </div>
+        <div class="info">
+          <span
+            class="tag"
+            v-for="item in tagList"
+            :key="item.path"
+            @click="onDetail(item.path)"
+          >{{ item.name }}</span>
         </div>
-        <div class="info"></div>
+        <Content class="theme-saltedfish-content custom list-box" />
       </div>
     </div>
   </div>
@@ -136,9 +118,22 @@ export default {
     articleList () {
       return this.$pagination.pages;
     },
+
+    tagList () {
+      let list = this.$tag.pages.map(item => ({
+        name: item.name,
+        path: item.path,
+      }))
+      list.unshift({
+        name: '全部',
+        path: '/blog/article/'
+      })
+      return list
+    },
   },
 
   mounted () {
+    console.log(this)
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })
@@ -185,9 +180,9 @@ export default {
       return obj;
     },
 
-    onDetail(page) {
-      console.log(page)
-      this.$router.push(page.path);
+    onDetail(path) {
+      if (path === this.$route.path) return
+      this.$router.push(path);
     },
   }
 }
@@ -197,13 +192,11 @@ export default {
 .blog {
   padding-top: 1rem;
   margin-top: 3.6rem;
-  height: calc(100vh - 3.6rem);
+  min-height: calc(100vh - 3.6rem);
   box-sizing: border-box;
 
   .blog-box {
-    display: flex;
-    justify-content: center;
-    max-width: 1040px;
+    max-width: 740px;
     margin: 0 auto;
   }
 
@@ -285,16 +278,29 @@ export default {
   }
 
   .info {
-    flex: 0 0 200px;
-    background: #f1f1f1;
-    margin-left: 15px;
+    .tag {
+      background-color: #ecf5ff;
+      display: inline-block;
+      height: 32px;
+      padding: 0 10px;
+      line-height: 30px;
+      font-size: 12px;
+      color: #409eff;
+      border: 1px solid #d9ecff;
+      border-radius: 4px;
+      box-sizing: border-box;
+      white-space: nowrap;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
   }
 }
 
 @media (max-width: 719px) {
   .blog {
     .blog-box {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
 
     .list {
@@ -332,6 +338,8 @@ export default {
 
     .info {
       margin-left: 0;
+      padding: 10px;
+      flex: 1;
     }
   }
 }

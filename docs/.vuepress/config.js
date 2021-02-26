@@ -32,7 +32,7 @@ module.exports = {
         label: '简体中文',
         nav: [
           { text: '指南', link: '/docs/' },
-          { text: '博客', link: '/blog/article/' },
+          { text: '博客', link: '/blog/' },
         ],
         sidebar: {
           '/docs/': [

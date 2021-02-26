@@ -4,6 +4,7 @@ date: 2018-4-4
 tag: 
   - vue
   - vuepress
+  - 测试
 ---
 
 # Intro to VuePress
