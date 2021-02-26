@@ -74,28 +74,18 @@ module.exports = (options, ctx) => {
           directories: [
             {
               id: 'blog',
-              dirname: 'blog',
-              path: '/blog/',
-              itemPermalink: '/blog/:year/:month/:day/:slug',
+              dirname: 'blog/article',
+              path: '/blog/article/',
+              itemPermalink: '/blog/article/:year/:month/:day/:slug',
               layout: 'BlogLayout',
-              // pagination: {
-              //   lengthPerPage: 2,
-              //   prevText: '上一页',
-              //   nextText: '下一页',
-              // },
             },
           ],
           frontmatters: [
             {
-              // Unique ID of current classification
               id: 'tag',
-              // Decide that the frontmatter keys will be grouped under this classification
               keys: ['tag'],
-              // Path of the `entry page` (or `list page`)
               path: '/tag/',
-              // Layout of the `entry page`
               layout: 'BlogLayout',
-              // Layout of the `scope page`
               scopeLayout: 'BlogLayout'
             },
           ],
@@ -103,6 +93,12 @@ module.exports = (options, ctx) => {
             lengthPerPage: 2,
             prevText: '上一页',
             nextText: '下一页',
+            sorter: (prev, next) => {
+              const dayjs = require('dayjs');
+              const prevTime = dayjs(prev.frontmatter.date);
+              const nextTime = dayjs(next.frontmatter.date);
+              return prevTime - nextTime > 0 ? -1 : 1;
+            },
           },
         },
       ]

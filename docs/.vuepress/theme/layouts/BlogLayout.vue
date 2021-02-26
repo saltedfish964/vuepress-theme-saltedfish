@@ -33,37 +33,27 @@
           <div class="list">
             <div
               class="item"
-              v-for="page in $pagination.pages"
+              v-for="page in articleList"
             >
               <div class="image-wrap"></div>
               <div class="extract">
                 <div class="date">
-                  <div class="month">{{ page.path.split('/')[2] }}</div>
-                  <div class="day">{{ page.path.split('/')[3] + '.' + page.path.split('/')[4] }}
-                  </div>
+                  <div class="month">{{ formatDate(page)['year'] }}</div>
+                  <div class="day">{{ formatDate(page)['monthAndDay'] }}</div>
                 </div>
                 <div class="detail">
-                  <h1 class="title">{{ page.title }}</h1>
-                  <p>The College Football Playoff (CFP) determines the national champion of the
-                    top division of college football. The format fits within the academic calendar
-                    and
-                    preserves the
-                    sport’s unique and compelling regular season.</p>
+                  <h1
+                    class="title"
+                    @click="onDetail(page)"
+                  >{{ page.title }}</h1>
+                  <p v-if="page.frontmatter">{{ page.frontmatter.summary }}</p>
                 </div>
               </div>
             </div>
-            <!-- <ul>
-              <li v-for="page in $pagination.pages">
-                <router-link
-                  class="page-link"
-                  :to="page.path"
-                >{{ page.title }}</router-link>
-              </li>
-            </ul> -->
           </div>
-          <!-- <div class="pagination-box">
+          <div class="pagination-box">
             <Pagination></Pagination>
-          </div> -->
+          </div>
         </div>
         <div class="info"></div>
       </div>
@@ -72,9 +62,10 @@
 </template>
 
 <script>
+import dayjs from 'dayjs'
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-// import { Pagination } from '@vuepress/plugin-blog/lib/client/components'
+import { Pagination } from '@vuepress/plugin-blog/lib/client/components'
 import { resolveSidebarItems } from '../util'
 
 export default {
@@ -83,7 +74,7 @@ export default {
   components: {
     Sidebar,
     Navbar,
-    // Pagination
+    Pagination
   },
 
   data () {
@@ -140,11 +131,14 @@ export default {
         },
         userPageClass
       ]
-    }
+    },
+
+    articleList () {
+      return this.$pagination.pages;
+    },
   },
 
   mounted () {
-    console.log(this)
     this.$router.afterEach(() => {
       this.isSidebarOpen = false
     })
@@ -174,7 +168,27 @@ export default {
           this.toggleSidebar(false)
         }
       }
-    }
+    },
+
+    formatDate (item) {
+      let obj = {
+        year: '',
+        monthAndDay: ''
+      };
+      if (item.frontmatter.date) {
+        obj.year = dayjs(item.frontmatter.date).year();
+        obj.monthAndDay = dayjs(item.frontmatter.date).format('MM.DD');
+      } else {
+        obj.year = dayjs().year();
+        obj.monthAndDay = dayjs().format('MM.DD');
+      }
+      return obj;
+    },
+
+    onDetail(page) {
+      console.log(page)
+      this.$router.push(page.path);
+    },
   }
 }
 </script>
@@ -193,10 +207,11 @@ export default {
     margin: 0 auto;
   }
 
-  .list {
+  .list-box {
     flex: 1;
-    max-width: 740px;
+  }
 
+  .list {
     .item {
       box-shadow: 0 1px 3px rgba(0, 0, 0, 12%), 0 1px 2px rgba(0, 0, 0, 24%);
       border-radius: 0.25rem;
@@ -251,8 +266,13 @@ export default {
             margin: 0;
             margin-bottom: 1rem;
             color: #2d3748;
-            font-size: 2.25rem;
+            font-size: 1.75rem;
             letter-spacing: -0.025em;
+
+            &:hover {
+              color: #666;
+              cursor: pointer;
+            }
           }
         }
       }
@@ -265,7 +285,7 @@ export default {
   }
 
   .info {
-    flex: 0 0 300px;
+    flex: 0 0 200px;
     background: #f1f1f1;
     margin-left: 15px;
   }
@@ -304,6 +324,10 @@ export default {
           }
         }
       }
+    }
+
+    .pagination-box {
+      padding: 0 15px;
     }
 
     .info {
